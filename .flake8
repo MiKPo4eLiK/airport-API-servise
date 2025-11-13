@@ -1,0 +1,14 @@
+[flake8]
+exclude =
+    migrations,
+    __pycache__,
+    manage.py,
+    settings.py,
+    venv,
+    env,
+    .venv,
+    */tests/*
+max-line-length = 88
+extend-ignore =
+    E203,  # whitespace before ':', compatibility with Black
+    W503,  # line break before binary operator
