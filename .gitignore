@@ -205,3 +205,27 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# === Docker related ===
+# Ignore Docker build artifacts
+*.pid
+*.out
+*.err
+docker-compose.override.yml
+Dockerfile.dev
+
+# Ignore collected static files (already collected in container)
+staticfiles/
+static/
+
+# Ignore media uploads (handled via volume or S3)
+media/
+
+# Ignore PostgreSQL data (if using local volume)
+data/
+postgres_data/
+
+# Ignore environment files
+.env.dev
+.env.prod
+.env.local
