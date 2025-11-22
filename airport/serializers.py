@@ -14,13 +14,13 @@ from user.models import User
 class AirportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Airport
-        fields = ("id", "name", "city", "code")
+        fields = ("id", "name", "city", "country")
 
 
 class AirplaneTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = AirplaneType
-        fields = ("id", "name", "capacity")
+        fields = ("id", "name")
 
 
 class AirplaneSerializer(serializers.ModelSerializer):
@@ -31,7 +31,15 @@ class AirplaneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Airplane
-        fields = ("id", "name", "airplane_type", "airplane_type_id")
+        fields = (
+            "id",
+            "name",
+            "rows",
+            "seats_in_row",
+            "capacity",
+            "airplane_type",
+            "airplane_type_id",
+        )
 
 
 class RouteSerializer(serializers.ModelSerializer):
@@ -52,7 +60,7 @@ class RouteSerializer(serializers.ModelSerializer):
             "destination",
             "source_id",
             "destination_id",
-            "distance_km",
+            "distance",
         )
 
 
@@ -69,22 +77,19 @@ class CrewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Crew
-        fields = ("id", "name", "members", "member_ids")
+        fields = ("id", "first_name", "last_name", "position", "members", "member_ids")
 
 
 class FlightSerializer(serializers.ModelSerializer):
     route = RouteSerializer(read_only=True)
     airplane = AirplaneSerializer(read_only=True)
-    crew = CrewSerializer(read_only=True)
+    crew = CrewSerializer(read_only=True, many=True)
 
     route_id = serializers.PrimaryKeyRelatedField(
         queryset=Route.objects.all(), source="route", write_only=True
     )
     airplane_id = serializers.PrimaryKeyRelatedField(
         queryset=Airplane.objects.all(), source="airplane", write_only=True
-    )
-    crew_id = serializers.PrimaryKeyRelatedField(
-        queryset=Crew.objects.all(), source="crew", write_only=True
     )
 
     class Meta:
@@ -96,10 +101,10 @@ class FlightSerializer(serializers.ModelSerializer):
             "crew",
             "route_id",
             "airplane_id",
-            "crew_id",
             "departure_time",
             "arrival_time",
         )
+
 
 class OrderSerializer(serializers.ModelSerializer):
     """Serializer for user orders."""
@@ -113,4 +118,10 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ("id", "user", "flight", "flight_id", "created_at")
-        read_only_fields = ("id", "user", "created_at")
+        read_only_fields = ("id", "user", "created_at", "flight")
+
+    def create(self, validated_data) -> Order:
+        flight_instance = validated_data.pop("flight")
+
+        order = Order.objects.create(flight=flight_instance, **validated_data)
+        return order

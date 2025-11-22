@@ -52,10 +52,9 @@ class CrewViewSet(viewsets.ModelViewSet):
 
 
 class FlightViewSet(viewsets.ModelViewSet):
-    queryset = Flight.objects.select_related("route", "airplane", "crew")
+    queryset = Flight.objects.select_related("route", "airplane").prefetch_related("crew")
     serializer_class = FlightSerializer
     permission_classes = [IsAdminOrReadOnly]
-
 
 class OrderViewSet(viewsets.ModelViewSet):
     """
