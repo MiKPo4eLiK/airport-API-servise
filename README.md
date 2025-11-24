@@ -111,3 +111,11 @@ use the -v flag:
 # Stop and remove everything, including database data
 
   --- docker compose down -v
+
+SCREENSHOTS:
+
+<img width="1365" height="114" alt="докер проект 1" src="https://github.com/user-attachments/assets/ca9d8cd4-803d-486c-a945-80412dce15c4" />
+<img width="1001" height="964" alt="докер проект 2" src="https://github.com/user-attachments/assets/14a6700c-2ee9-43ad-8e0f-e73a018e9f39" />
+<img width="1002" height="1371" alt="докер проект 3" src="https://github.com/user-attachments/assets/a6abbb36-0919-4dbb-b1a7-bc0491a0f12f" />
+<img width="1224" height="1258" alt="докер проект 4" src="https://github.com/user-attachments/assets/d79d230a-69d2-4eab-a6a1-943b68bcb042" />
+<img width="1279" height="1285" alt="докер проект 5" src="https://github.com/user-attachments/assets/551ab854-2be3-4efa-9349-b47c97e30d77" />
