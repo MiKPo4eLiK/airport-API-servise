@@ -1,5 +1,11 @@
 import pytest
-from airport.models import Airport, AirplaneType, Airplane, Route
+from airport.models import (
+    Airport,
+    AirplaneType,
+    Airplane,
+    Route,
+)
+
 
 pytestmark = pytest.mark.django_db
 

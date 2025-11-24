@@ -1,4 +1,7 @@
-from rest_framework import viewsets, permissions
+from rest_framework import (
+    viewsets,
+    permissions,
+)
 
 from .models import (
     Airport,

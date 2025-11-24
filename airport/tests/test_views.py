@@ -3,6 +3,7 @@ from rest_framework.test import APIClient
 from airport.models import Airport
 from django.urls import reverse
 
+
 pytestmark = pytest.mark.django_db
 
 
